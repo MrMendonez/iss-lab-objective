@@ -69,15 +69,27 @@ $(document).ready(function() {
 
   function issApiSuccessHandler(response) {
 
-    var geoLocation = response.results[0].geometry.location;
-    var issApiUrl = "http://api.open-notify.org/iss-pass.json?";
+    var geoLocation = response.results[0].geometry.location;    
+    var issApiUrl = "https://crossorigin.me/http://api.open-notify.org/iss-pass.json?";
       issApiUrl += "lat=" + geoLocation.lat;
       issApiUrl += "&lon=" + geoLocation.lng;
-
-      console.log(issApiUrl)
+      $.ajax({
+        type: "GET",
+        url: issApiUrl,
+        success: function(response){
+          console.log(response)
+        }
+      });
 
 
   }
+function secondsTimeSpanToHMS(s) {
+    var h = Math.floor(s/3600); //Get whole hours
+    s -= h*3600;
+    var m = Math.floor(s/60); //Get remaining minutes
+    s -= m*60;
+    return h+":"+(m < 10 ? '0'+m : m)+":"+(s < 10 ? '0'+s : s); //zero padding on minutes and seconds
+}
 
 
 
