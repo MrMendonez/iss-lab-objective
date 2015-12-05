@@ -9,7 +9,9 @@ $(document).ready(function() {
     $.ajax({
       type: "GET",
       url: googleApiUrl,
-      success: googleApiSuccessHandler
+      success: googleApiSuccessHandler,
+      success: issApiSuccessHandler
+
     });
 
   });
@@ -64,4 +66,19 @@ $(document).ready(function() {
       $("#photosRow").append(newCol);
     }
   }
+
+  function issApiSuccessHandler(response) {
+
+    var geoLocation = response.results[0].geometry.location;
+    var issApiUrl = "http://api.open-notify.org/iss-pass.json?";
+      issApiUrl += "lat=" + geoLocation.lat;
+      issApiUrl += "&lon=" + geoLocation.lng;
+
+      console.log(issApiUrl)
+
+
+  }
+
+
+
 });
